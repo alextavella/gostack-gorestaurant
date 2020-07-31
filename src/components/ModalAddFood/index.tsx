@@ -28,6 +28,16 @@ interface IModalProps {
   handleAddFood: (food: Omit<IFoodPlate, 'id' | 'available'>) => void;
 }
 
+const initialData = {
+  name: 'Veggie',
+  description:
+    'Macarrão com pimentão, ervilha e ervas finas colhidas no himalaia.',
+  price: '21.90',
+  available: true,
+  image:
+    'https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food2.png',
+};
+
 const ModalAddFood: React.FC<IModalProps> = ({
   isOpen,
   setIsOpen,
@@ -37,14 +47,15 @@ const ModalAddFood: React.FC<IModalProps> = ({
 
   const handleSubmit = useCallback(
     async (data: ICreateFoodData) => {
-      // TODO ADD A NEW FOOD AND CLOSE THE MODAL
+      handleAddFood(data);
+      setIsOpen();
     },
     [handleAddFood, setIsOpen],
   );
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form ref={formRef} onSubmit={handleSubmit} initialData={initialData}>
         <h1>Novo Prato</h1>
         <Input name="image" placeholder="Cole o link aqui" />
 
